@@ -1,5 +1,17 @@
 .LineContainer{
-width: 600px;
-height: 500px;
-margin: 40px auto;
+    width: 30%;
+    height: 300px;
+
+}
+
+.BarContainer{
+   width: 30%;
+    height: 300px;
+}
+
+.ChartContainer{
+    display: flex;
+    flex-direction: row;
+justify-content: center;
+column-count: 2
 }

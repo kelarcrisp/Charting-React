@@ -4,8 +4,9 @@ import { Bar, Line, Pie } from 'react-chartjs-2';
 import classes from './CovaChart.module.css';
 const CovaChart = () => {
 
-    const [chartData, setChartData] = useState([])
+    // const [chartData, setChartData] = useState([])
     const [test, setTest] = useState({});
+    const [deathToll, setDeathToll] = useState({})
     useEffect(() => {
         d3.csv('usCounties.csv').then(data => {
 
@@ -22,11 +23,14 @@ const CovaChart = () => {
             console.log(filterdCities)
             let beginningCityTotals = filterdCities.slice(34, 37);
             let middleCityTotals = filterdCities.slice(118, 121);
-            console.log(middleCityTotals, 'middle')
             let totalCitiesCases = filterdCities.slice(-3);
+            console.log(middleCityTotals, 'middle city totals')
+
+
+            let totalDeaths = +totalCitiesCases[0].deaths + +totalCitiesCases[1].deaths + +totalCitiesCases[2].deaths;
+
             let totalCases = +totalCitiesCases[0].cases + +totalCitiesCases[1].cases + +totalCitiesCases[2].cases
-            console.log(totalCitiesCases)
-            console.log(totalCases, 'total cases')
+
             setTest({
                 chartData: {
                     labels: ['February', 'March', 'April'],
@@ -37,8 +41,6 @@ const CovaChart = () => {
                                 beginningCityTotals[0].cases,
                                 middleCityTotals[0].cases,
                                 totalCitiesCases[0].cases,
-
-
                             ],
                             fill: false,
                             borderColor: 'green'
@@ -70,14 +72,56 @@ const CovaChart = () => {
                 }
             });
 
+
+            setDeathToll({
+                chartData: {
+                    labels: ['February', 'March', 'April'],
+                    datasets: [
+                        {
+                            label: 'Los Angeles',
+                            data: [
+                                beginningCityTotals[0].deaths,
+                                middleCityTotals[0].deaths,
+                                totalCitiesCases[0].deaths,
+
+                            ],
+                            backgroundColor: 'green'
+                        },
+                        /// NYC
+                        {
+                            label: 'NYC',
+                            data: [
+                                beginningCityTotals[1].deaths,
+                                middleCityTotals[1].deaths,
+                                totalCitiesCases[1].deaths,
+
+                            ],
+
+                            backgroundColor: 'blue'
+                        },
+                        /// Seattle
+                        {
+                            label: 'Seattle',
+                            data: [
+                                beginningCityTotals[2].deaths,
+                                middleCityTotals[2].deaths,
+                                totalCitiesCases[2].deaths,
+
+                            ],
+                            backgroundColor: 'purple'
+                        },
+                    ]
+                }
+            });
+
         })
 
     }, [])
-    console.log(test, 'test')
+    console.log(deathToll, 'DEATH TOLL')
 
 
     return (
-        <div>
+        <div className={classes.ChartContainer}>
             {/* {chartData.map((x) => {
                 return <div key={Math.random()}>{x.county} {x.cases} {x.deaths}</div>
             })} */}
@@ -91,6 +135,26 @@ const CovaChart = () => {
                                 scaleLabel: {
                                     display: true,
                                     labelString: 'Number of Cases',
+                                },
+
+                            }],
+
+                        },
+                        maintainAspectRatio: false
+                    }}
+                />
+            </div>
+
+            <div className={classes.BarContainer}>
+                <Bar
+                    data={deathToll.chartData}
+
+                    options={{
+                        scales: {
+                            yAxes: [{
+                                scaleLabel: {
+                                    display: true,
+                                    labelString: 'Number of Deaths',
                                 },
 
                             }],
