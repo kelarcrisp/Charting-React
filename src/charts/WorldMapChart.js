@@ -62,7 +62,7 @@ const WorldMapChart = ({ data }) => {
                 .attr('class', 'label')
                 .text(feature => {
                     console.log(feature)
-                    return feature && feature.properties.name + ': ' + feature.properties.DEATHS
+                    return feature && feature.properties.name + ': ' + 'Current Deaths ' + feature.properties.DEATHS
                 })
 
                 .attr('x', selectedCountry ? geoCentroid(selectedCountry)[0] : null)
