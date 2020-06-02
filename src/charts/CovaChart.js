@@ -9,7 +9,7 @@ const CovaChart = () => {
     const [deathToll, setDeathToll] = useState({})
     useEffect(() => {
         d3.csv('usCounties.csv').then(data => {
-
+console.log(data, 'cova chart data')
             const filterdCities =
                 data.filter((x) => {
                     return x.county === 'Los Angeles' || x.county === 'King' || x.county === 'New York City'

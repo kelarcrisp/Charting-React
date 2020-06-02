@@ -1,0 +1,26 @@
+General Update Pattern
+
+
+    1. create a reference to whatever element youre wanting to sync with d3
+    2. in useEffect, select that current reference.
+    3. the 3 most important things to know are (enter,update,exit) you access these through the join API
+
+
+Line Charts --
+
+    1. import {line}
+    2. can be built using the path element,
+    3. selectAll with 'path' give an attr of 'd', and value => myLine
+    4. use scaleLinear for x and y axis ticks scaleLinear you don't have to be explicit on how to map
+Scale --
+    1. Scale works by taking a domain and essentially scaling that data intp the range
+
+xAxis --
+    1. pass your scale functon into axisBottom
+    2. make sure to transform each to the correct position
+
+
+ Bar Charts --
+
+    1.instead of scaleLinear for ticks you use scaleBand with scaleBand you HAVE to be explicit on how to map values
+    2. 
